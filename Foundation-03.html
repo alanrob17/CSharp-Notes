@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Foundation-03.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="advanced-exceptions">Advanced Exceptions</h1>
+<p>You can create your own exceptions. Use this exception to warn the user that they have caused a problem.</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+    {
+        <span class="hljs-keyword">try</span>
+        {
+            SimpleMethod();
+        }
+        <span class="hljs-keyword">catch</span> (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SimpleMethod</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InvalidOperationException(<span class="hljs-string">"You should not be calling SimpleMethod"</span>);
+    }
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>You should not be calling SimpleMethod</p>
+</blockquote>
+<p>Adding the <code>try-catch{}</code> block around your method call allows the exception to bubble up and print out the exception in the console.</p>
+<h2 id="using-snippets">using snippets</h2>
+<p>I want to add a <code>try-catch{}</code> block around <code>SimpleMethod();</code>. To do this highlight the whole statement and right-click. On the menu there is an option for <code>Snippet</code>, select <code>Surround With</code> and type <code>try</code>.</p>
+<p>This will surround the statement with a <code>try-catch{}</code> block.</p>
+<h2 id="catching-different-types-of-exceptions">Catching different types of exceptions</h2>
+<p>We do have the option to catch more than one exception.</p>
+<pre class="hljs"><code><div>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+	{
+		<span class="hljs-keyword">try</span>
+		{
+			SimpleException();
+		}
+		<span class="hljs-keyword">catch</span> (InvalidOperationException ex) 
+		{
+			Console.WriteLine(<span class="hljs-string">"You should not be calling these methods."</span>);
+		}
+		<span class="hljs-keyword">catch</span> (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}		
+	}
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>You should not be calling these methods.</p>
+</blockquote>
+<p>In this case the exception bubbles up from the <code>SimpleException()</code> method and works its way through the <code>catch{}</code> blocks. It stops at the <code>InvalidOperationException</code> exception because that is the exception that was triggered and prints out that console message, not the message from the method <code>SimpleMethod()</code>.</p>
+<p>If it wasn't the exception that was triggered it will move down to the general exception.</p>
+<p><strong>Note:</strong> add the general exception last or you won't move down the <code>catch{}</code> blocks ie. from the most specific to the most general.</p>
+<p>You could also return both <code>InvalidOperationException</code> messages with this.</p>
+<pre class="hljs"><code><div>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+	{
+		<span class="hljs-keyword">try</span>
+		{
+			SimpleException();
+		}
+		<span class="hljs-keyword">catch</span> (InvalidOperationException ex) 
+		{
+			Console.WriteLine(<span class="hljs-string">"You should not be calling these methods."</span>);
+			Console.WriteLine(ex.Message);
+		}
+		<span class="hljs-keyword">catch</span> (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}		
+	}
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>You should not be calling these methods.<br>
+You should not be calling SimpleMethod</p>
+</blockquote>
+<h2 id="notimplementedexception">NotImplementedException</h2>
+<p>This is an exception that Microsoft add to a new generated method.</p>
+<p>To see this add a method call in the <code>try</code> block of your code.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">try</span>
+    {
+        DifferentMethod();
+        SimpleException();
+    }
+</div></code></pre>
+<p>This method doesn't exist currently so you would see an error underneath it. Da a <code>Ctrl .</code> over the method statement and it will generate the method for you.</p>
+<p>This is the code that is generated.</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DifferentMethod</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> NotImplementedException();
+    }
+</div></code></pre>
+<p>Microsoft add the <code>NotImplementedException</code> exception for you. Most people will delete this line as soon as it is generated. That is a mistake.</p>
+<p>For example remove this line and run the program.</p>
+<p>You get the two <code>InvalidOperationException</code> messages but the program goes into the empty method call and works as normal.</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DifferentMethod</span>(<span class="hljs-params"></span>)</span>
+    {
+    }
+</div></code></pre>
+<p>It is much better to leave the exception line in your code until you finish writing the method. This way if you go out to lunch and forget to complete the method when you run the program you will get a <code>NotImplementedException</code>. It tells you that the method is empty or isn't finished.</p>
+<p>You can also add another <code>catch{}</code> block to catch this exception.</p>
+<pre class="hljs"><code><div>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+	{
+		<span class="hljs-keyword">try</span>
+		{
+			DifferentMethod();
+			SimpleMethod();
+		}
+		<span class="hljs-keyword">catch</span> (NotImplementedException ex)
+		{
+			Console.WriteLine(<span class="hljs-string">"You forgot to complete your code!!"</span>);
+		}
+		<span class="hljs-keyword">catch</span> (InvalidOperationException ex) 
+		{
+			Console.WriteLine(<span class="hljs-string">"You should not be calling these methods."</span>);
+			Console.WriteLine(ex.Message);
+		}
+		<span class="hljs-keyword">catch</span> (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+	}
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>You forgot to complete your code!!</p>
+</blockquote>
+<p>This is really handy to make sure you complete a method.</p>
+<p>Add another method named <code>ComplexMethod()</code>.</p>
+<pre class="hljs"><code><div>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+	{
+		<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">AdvancedExceptions</span>(<span class="hljs-params"></span>)</span>
+		{
+			<span class="hljs-keyword">try</span>
+			{
+				DifferentMethod();
+		
+				Console.Write(<span class="hljs-string">"What is your name? "</span>);
+				<span class="hljs-keyword">string</span> name = Console.ReadLine();
+		
+				ComplexMethod(name);
+				SimpleMethod();
+			}
+			<span class="hljs-keyword">catch</span> (InvalidOperationException ex) 
+			{
+				Console.WriteLine(<span class="hljs-string">"You should not be calling these methods."</span>);
+				Console.WriteLine(ex.Message);
+			}
+			<span class="hljs-keyword">catch</span> (NotImplementedException ex)
+			{
+				Console.WriteLine(<span class="hljs-string">"You forgot to complete your code!!"</span>);
+				Console.WriteLine(ex.Message);
+			}
+			<span class="hljs-keyword">catch</span> (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
+		
+		<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ComplexMethod</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name</span>)</span>
+		{
+			<span class="hljs-keyword">if</span> (name.ToLower() == <span class="hljs-string">"alan"</span>)
+			{
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InsufficientMemoryException(<span class="hljs-string">"Alan is too big for this method!!"</span>);
+			}
+			<span class="hljs-keyword">else</span>
+			{
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">"This person isn't Alan."</span>);
+			}
+		}
+	}
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>You forgot to complete your code!!<br>
+The method or operation is not implemented.</p>
+</blockquote>
+<p>It does the <code>DifferentMethod()</code> exceptions and then stops. The code doesn't percolate down to the exception for <code>ComplexMethod()</code>. Why?</p>
+<p>The reason is that C# will only produce one exception per block of code. In our <code>try{}</code> block we have three method calls and if there is an exception in the first method it will only work with that method and then quits. the rest of the <code>try{}</code> block is ignored so we don't get to add our name. The program then progresses down to the <code>catch{}</code> blocks and percolates until it finds first matching <code>catch{}</code> block.</p>
+<p>Our way to fix this is to finish our method <code>DifferentMethod()</code>.</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DifferentMethod</span>(<span class="hljs-params"></span>)</span>
+    {
+        Console.WriteLine(<span class="hljs-string">"This is DifferentMethod working correctly."</span>);
+    }
+</div></code></pre>
+<p>Run the program again.</p>
+<blockquote>
+<p>This is DifferentMethod working correctly.<br>
+What is your name? Alan<br>
+Alan is too big for this method!!</p>
+</blockquote>
+<p>It successfully completed <code>DifferentMethod()</code> and then ran <code>ComplexMethod()</code>. When it hit the exception it bubbled up to the <code>catch{}</code> blocks and percolated through to the general exception.</p>
+<p>If we run the program again and enter another name we will get the exception message, <em>This person isn't Alan.</em>.</p>
+<h2 id="more-advanced-exceptions">More advanced exceptions</h2>
+<p>You can also use where clauses in you <code>catch{}</code> blocks. Add another general exception and take the string <code>name</code> out of the <code>try-catch{}</code> block.</p>
+<pre class="hljs"><code><div>		<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+		{
+			<span class="hljs-keyword">string</span> name = <span class="hljs-keyword">string</span>.Empty;
+	
+			<span class="hljs-keyword">try</span>
+			{
+				DifferentMethod();
+	
+				Console.Write(<span class="hljs-string">"What is your name? "</span>);
+				name = Console.ReadLine();
+	
+				ComplexMethod(name);
+				SimpleMethod();
+			}
+			<span class="hljs-keyword">catch</span> (InvalidOperationException ex) 
+			{
+				Console.WriteLine(<span class="hljs-string">"You should not be calling these methods."</span>);
+				Console.WriteLine(ex.Message);
+			}
+			<span class="hljs-keyword">catch</span> (NotImplementedException ex)
+			{
+				Console.WriteLine(<span class="hljs-string">"You forgot to complete your code!!"</span>);
+				Console.WriteLine(ex.Message);
+			}
+			<span class="hljs-keyword">catch</span> (Exception) <span class="hljs-keyword">when</span> (name.ToLower() == <span class="hljs-string">"alan"</span>)
+			{
+				Console.WriteLine(<span class="hljs-string">"You typed in Alan, didn't you?"</span>);
+			}
+			<span class="hljs-keyword">catch</span> (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
+	
+		<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ComplexMethod</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name</span>)</span>
+		{
+			<span class="hljs-keyword">if</span> (name.ToLower() == <span class="hljs-string">"alan"</span>)
+			{
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> InsufficientMemoryException(<span class="hljs-string">"Alan is too big for this method!!"</span>);
+			}
+			<span class="hljs-keyword">else</span>
+			{
+				<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentException(<span class="hljs-string">"This person isn't Alan."</span>);
+			}
+		}
+	
+		...
+</div></code></pre>
+<p>When you type in <em>Alan</em> you get the following results.</p>
+<blockquote>
+<p>This is DifferentMethod working correctly.<br>
+What is your name? Alan<br>
+You typed in Alan, didn't you?</p>
+</blockquote>
+<p>We are using two general exceptions but one has a <code>where</code> clause attached and this is the one we hit.</p>
+<p><strong>Note:</strong> this is an exaggerated example. Usually you would only have one <code>catch{}</code> block, either a general or a specific exception.</p>
+<h2 id="c-method-exceptions">C# method exceptions</h2>
+<p>You can also work out what type of exception you should use for a particular method like <em>WriteLine()</em> or <em>ReadLine()</em>. Mouse over one of these methods and it will give you a list of exceptions that occur with these methods.</p>
+<p>For example <em>WriteLine()</em> generates a <code>System.IO.IO</code> exception.</p>
+<h2 id="finally">finally</h2>
+<p>Another thing we can do is add a <code>finally</code> block to the end of the <code>catch{}</code> blocks.</p>
+<p><code>finally</code> will run no matter what exceptions are called. We use this so that we can do some cleanup work. A good example of this is when you are doing some database work in a <code>try{}</code> block. In this case you could have connections left open so using a <code>finally</code> block could be used to shut the connections.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">catch</span> (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+    <span class="hljs-keyword">finally</span>
+    {
+        Console.WriteLine(<span class="hljs-string">"This will always work!"</span>);
+    }
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>This is DifferentMethod working correctly.<br>
+What is your name? Alan<br>
+You typed in Alan, didn't you?<br>
+This will always work!</p>
+</blockquote>
+<h2 id="advanced-breakpoints">Advanced breakpoints</h2>
+<h3 id="conditional-breakpoints">Conditional breakpoints</h3>
+<p>The following code has a divide by zero error. If we were trying to debug through this code it would be an impossible task.</p>
+<p>For example, we know the code fails on the statement <code>test = 5 / i;</code> and we want to add a breakpoint on the <code>total += i;</code> statement. It would take 999 iterations before we hit our error.</p>
+<pre class="hljs"><code><div>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+	{
+		RunsALot();
+	}
+	
+	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">RunsALot</span>(<span class="hljs-params"></span>)</span>
+	{
+		<span class="hljs-keyword">long</span> total = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">int</span> test = <span class="hljs-number">0</span>;
+	
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">-1000</span>; i &lt;= <span class="hljs-number">1000</span>; i++)
+		{
+			total += i;
+	
+			<span class="hljs-keyword">try</span>
+			{
+				test = <span class="hljs-number">5</span> / i;
+			}
+			<span class="hljs-keyword">catch</span>
+			{
+				Console.WriteLine(<span class="hljs-string">"There was an exception."</span>);
+			}
+		}
+	
+		Console.WriteLine(<span class="hljs-string">$"The total is <span class="hljs-subst">{ total }</span>"</span>);
+	}
+</div></code></pre>
+<p>We can set conditionals on our breakpoints.</p>
+<p>Set a break point at <code>total += i;</code>.</p>
+<p>Right-click on the breakpoint dot and select conditions.</p>
+<h3 id="hit-count-conditional">Hit Count conditional</h3>
+<p><img src="assets/images/hit-count.jpg" alt="Hit count conditional" title="Hit count conditional"></p>
+<p>In this conditional we want to use <code>Hit Count</code> and we will make it a multiple of 100.</p>
+<p><strong>Note:</strong> our breakpoint is now a red circle with a black plus in it. This means that it is a counter breakpoint which means that it only breaks on certain circumstances.</p>
+<p>When we hit <code>F5</code> and debug the code it will stop after the first 100th iteration (<em>i = 901</em>). Hit <code>F5</code> and it will iterate another 100 times (<em>i = 801</em>) and so on. We hit <em>-1</em> and then <em>99</em>. It is at this stage we get a console message telling us that <em>There was an exception.</em></p>
+<p>ie: the error happens between <em>-1</em> and <em>99</em></p>
+<p>From here we can go back to <strong>Conditions</strong> and add a new condition.</p>
+<p><img src="assets/images/condition-is-true.jpg" alt="Condition is true" title="Condition is true"></p>
+<p>We know that the error occurs after <em>-1</em> so when we hit <code>F5</code> and continue to hit <code>F5</code> we will see the code increment by <em>1</em>. When we hit <em>0</em> we get the exception message.</p>
+<p>We could also do this.</p>
+<p><img src="assets/images/condition-is-true.jpg" alt="Condition is true" title="Condition is true"></p>
+<p>When we do this our first breakpoint is as 0. The next breakpoint will be 10 and this is where our exception pops up.</p>
+<p>We could also guess where the error might occur.</p>
+<p><img src="assets/images/condition-hit.jpg" alt="Two conditions" title="Two conditions"></p>
+<p>Using two conditionals allows us to get more granular. We hit <code>F5</code> and <em>i = 0</em>. We then step into the <code>try{}</code> block and after we move past the <em>test = 5 / i;</em> statement we will move to our <code>catch{}</code> block and the exception statement gets printed.</p>
+<p>There is another way to try and find an error. You have a <code>catch{}</code> block that writes an exception message. Put a breakpoint on that line and debug.</p>
+<p><img src="assets/images/divide-by-zero-error.jpg" alt="Divide by zero error" title="Divide by zero error"></p>
+<p>This gets straight to your error and you can see the problem with the <code>i</code> variable. You can also see the exception message.</p>
+<h3 id="actions">Actions</h3>
+<p>We can add an action to print out a message to the output.</p>
+<p><strong>Note:</strong> the red star for the breakpoint denotes an action</p>
+<p><img src="assets/images/actions.jpg" alt="Actions" title="Actions"></p>
+<p>Produces this output.</p>
+<p><img src="assets/images/output.jpg" alt="Output" title="Output"></p>
+
+</body>
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Foundation-04.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="object-oriented-principles---part-1">Object Oriented Principles - Part 1</h1>
+<h2 id="static-classes">Static Classes</h2>
+<p>We are going to start using static classes for this module.</p>
+<p>We create a <code>Program.cs</code> class in a Console application.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">ConsoleUI</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            <span class="hljs-keyword">string</span> firstName = RequestData.GetName(<span class="hljs-string">"What is your first name: "</span>);
+
+            UserMessages.ApplicationStartMessage(firstName);
+
+            <span class="hljs-keyword">double</span> x = RequestData.GetADouble(<span class="hljs-string">"Please enter your first number: "</span>);
+            <span class="hljs-keyword">double</span> y = RequestData.GetADouble(<span class="hljs-string">"Please enter your second number: "</span>);
+
+            <span class="hljs-keyword">double</span> result = CalculateData.Add(x, y);
+
+            UserMessages.PrintResultMessage(<span class="hljs-string">$"The sum of <span class="hljs-subst">{ x }</span> and <span class="hljs-subst">{ y }</span> is <span class="hljs-subst">{ result }</span>"</span>);
+
+            Console.ReadLine();
+        }
+    }
+}
+</div></code></pre>
+<p>The first thing we need to do is make the class have a <code>public</code> access modifier. Do the same with the <code>Main</code> method.</p>
+<p>We have a number of methods being called in the <code>Main</code> method and the temptation is to write all these methods in the <code>Program</code> class.</p>
+<p>This is a mistake! We should make separate classes for each different type of method we are creating.</p>
+<p>The first thing we are doing is getting a user name. Build a class to to get data. Name it <code>RequestData</code>.</p>
+<p>Next we want to print messages so create another class for this named <code>UserMessages</code>.</p>
+<p>We are doing calculations on double number values the user enters so we could create a <code>Calculate</code> class.</p>
+<p>Rather than print the output in the <code>Program</code> class we should do this in the UserMessages class with a method named <code>PrintResultMessage()</code>.</p>
+<p>Separating your work out into different classes is based on the <strong>Single Responsibility Principle</strong>. It makes you code easier to find and work with and makes it easier for another programmer to figure out what is going on in the code.</p>
+<p>Methods should also work with the <strong>Single Responsibility Principle</strong> meaning that a method only does one thing.</p>
+<h3 id="usermessages-class">UserMessages class</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">ConsoleUI</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">UserMessages</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ApplicationStartMessage</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> firstName</span>)</span>
+        {
+            Console.Clear();
+            Console.WriteLine(<span class="hljs-string">"Welcome to the Static Class Demo App"</span>);
+
+            <span class="hljs-keyword">int</span> hourOfDay = DateTime.Now.Hour;
+
+            <span class="hljs-keyword">if</span> (hourOfDay &lt; <span class="hljs-number">12</span>)
+            {
+                Console.WriteLine(<span class="hljs-string">$"Good morning <span class="hljs-subst">{ firstName }</span>!"</span>);
+            }
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (hourOfDay &lt; <span class="hljs-number">19</span>)
+            {
+                Console.WriteLine(<span class="hljs-string">$"Good afternoon <span class="hljs-subst">{ firstName }</span>!"</span>);
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                Console.WriteLine(<span class="hljs-string">$"Good evening <span class="hljs-subst">{ firstName }</span>!"</span>);
+            }
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PrintResultMessage</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> message</span>)</span>
+        {
+            Console.WriteLine(message);
+            Console.WriteLine();
+            Console.WriteLine(<span class="hljs-string">"Thank you for using our app to calculate for you."</span>);
+        }
+    }
+}
+</div></code></pre>
+<p>Contains all of the user messaging.</p>
+<h3 id="requestdata-class">RequestData class</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">ConsoleUI</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">RequestData</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span> <span class="hljs-title">GetName</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> message</span>)</span>
+        {
+            Console.Write(message);
+            <span class="hljs-keyword">string</span> output = Console.ReadLine();
+            <span class="hljs-keyword">return</span> output;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">GetADouble</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> message</span>)</span>
+        {
+            Console.Write(message);
+            <span class="hljs-keyword">string</span> numberText = Console.ReadLine();
+            <span class="hljs-keyword">double</span> output;
+
+            <span class="hljs-keyword">bool</span> isDouble = <span class="hljs-keyword">double</span>.TryParse(numberText, <span class="hljs-keyword">out</span> output);
+
+            <span class="hljs-keyword">while</span> (isDouble == <span class="hljs-literal">false</span>)
+            {
+                Console.WriteLine(<span class="hljs-string">"That was not a valid number. Please try again."</span>);
+                Console.Write(message);
+                numberText = Console.ReadLine();
+
+                isDouble = <span class="hljs-keyword">double</span>.TryParse(numberText, <span class="hljs-keyword">out</span> output);
+            }
+
+            <span class="hljs-keyword">return</span> output;
+        }
+    }
+}
+</div></code></pre>
+<p>Contains all the data entry code.</p>
+<h3 id="calculatedata-class">CalculateData class</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">ConsoleUI</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CalculateData</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y</span>)</span>
+        {
+            <span class="hljs-keyword">double</span> output = x + y;
+
+            <span class="hljs-keyword">return</span> output;
+        }
+    }
+}
+</div></code></pre>
+<p>Contains all the code for calculating values.</p>
+<p>Note, seeing as we are working with static methods we can also make the classes static as well. If we forget to make a particular method a static method this will cause an error. This makes sure that we are using static methods.</p>
+<p>There is no reason why we should make all of our classes <code>static</code> and we can happily work with <code>static</code> and <code>instantiated</code> classes in the same project.</p>
+<p>The first thing that we see when we look at our code is that there are a number of files in our solution. That isn't a problem and when we work on large projects there could be dozens (or hundreds) of files.</p>
+<p>If you name your classes properly it should be easy to find the methods you need to work with. In fact, some of this code could be reused in other projects with minimal changes.</p>
+<h2 id="instantiated-classes">Instantiated Classes</h2>
+<h3 id="important-note">Important note</h3>
+<p>Static classes have an issue. If you store static data in the classes it lasts for the lifetime of the program and everyone has access to that same data. If you store a lot of data it could be a problem.</p>
+<p>Instantiated classes are different and they can solve a big problem.</p>
+<p>I can save details for a person with.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">string</span> firstName;
+    <span class="hljs-keyword">string</span> lastName;
+    <span class="hljs-keyword">string</span> email;
+</div></code></pre>
+<p>This is okay for one person but what if I have a number of people?</p>
+<p>This is where class instantiation comes into play.</p>
+<p>We will create a new class and call it <code>PersonModel</code>. We will <strong>NOT</strong> make it static.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">ConsoleUI</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PersonModel</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FirstName;
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> LastName;
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Email;
+    }
+}
+</div></code></pre>
+<p>This can be viewed as a blueprint, a plan of your object but you can't use it.</p>
+<p>I can't access the <code>PersonModel</code> properties in <code>Main()</code>.</p>
+<p><img src="assets/images/no-access.jpg" alt="No access to fields" title="No access to fields"></p>
+<p>To get around this I have to create an instance of this object (blueprint). i.e. I have to instantiate the object.</p>
+<p><img src="assets/images/instance-of-object.jpg" alt="Create an instance of an object" title="Create an instance of an object"></p>
+<p>This allows us to access the fields of this object.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">ConsoleUI</span>
+{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            PersonModel person = <span class="hljs-keyword">new</span> PersonModel(); <span class="hljs-comment">// instantiate PersonModel</span>
+
+            person.FirstName = <span class="hljs-string">"Alan"</span>;
+            person.LastName = <span class="hljs-string">"Robson"</span>;
+            person.Email = <span class="hljs-string">"alan@alan.com"</span>;
+        }
+    }
+}
+</div></code></pre>
+<p>Here you are building a house from your blueprint. <code>PersonModel</code> is the blueprint and once you instantiate it with <code>person</code> it becomes a real house and you can add values to it.</p>
+<p>You can also do this</p>
+<pre class="hljs"><code><div>    PersonModel secondPerson = <span class="hljs-keyword">new</span> PersonModel();
+
+    secondPerson.FirstName = <span class="hljs-string">"James"</span>;
+    <span class="hljs-comment">// ...</span>
+</div></code></pre>
+<p>So basically we have built two different houses with the same blueprint.</p>
+<p>This is how we store multiple bits of data together and have multiples of them. Obviously this isn't very efficient.</p>
+<p>What we can do is make a <code>List</code> of type <code>PersonModel</code>.</p>
+<pre class="hljs"><code><div>    List&lt;PersonModel&gt; people = <span class="hljs-keyword">new</span> List&lt;PersonModel&gt;();
+</div></code></pre>
+<p>So our <code>List</code> isn't of one of the primitive types but of a type that we created, <code>PersonModel</code>.</p>
+<p>I can add a person to the people list with this code.</p>
+<pre class="hljs"><code><div>    List&lt;PersonModel&gt; people = <span class="hljs-keyword">new</span> List&lt;PersonModel&gt;();
+
+    PersonModel person = <span class="hljs-keyword">new</span> PersonModel();
+
+    person.FirstName = <span class="hljs-string">"Alan"</span>;
+    person.LastName = <span class="hljs-string">"Robson"</span>;
+    person.Email = <span class="hljs-string">"alan@alan.com"</span>;
+
+    people.Add(person);
+</div></code></pre>
+<p>We can add on to this to add another <code>person</code>.</p>
+<pre class="hljs"><code><div>    List&lt;PersonModel&gt; people = <span class="hljs-keyword">new</span> List&lt;PersonModel&gt;();
+
+    PersonModel person = <span class="hljs-keyword">new</span> PersonModel();
+
+    person.FirstName = <span class="hljs-string">"Alan"</span>;
+    person.LastName = <span class="hljs-string">"Robson"</span>;
+    person.Email = <span class="hljs-string">"alan@alan.com"</span>;
+
+    people.Add(person);
+
+    person = <span class="hljs-keyword">new</span> PersonModel();
+
+    person.FirstName = <span class="hljs-string">"Charley"</span>;
+
+    people.Add(person);
+</div></code></pre>
+<p>Because we have created a new <code>PersonModel</code> (<code>= new PersonModel();</code>) we can add new details to it and save it to the <code>people</code> list.</p>
+<p>We can also view this data.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> p <span class="hljs-keyword">in</span> people)
+    {
+        Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{p.FirstName}</span>"</span>);
+    }
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>Alan<br>
+Charley</p>
+</blockquote>
+<p>We can add as many people as we want to the <code>people</code> list.</p>
+<p>Now we are going to modify our <code>PersonModel</code> class because this is not the way we want to create our objects. They don't work as well as they should and we can improve on this by changing the <strong>fields</strong> to <strong>properties</strong>.</p>
+<p>We do this by using auto properties.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PersonModel</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FirstName { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> LastName { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Email { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    }
+</div></code></pre>
+<p><code>get;</code> gets our property and <code>set;</code> sets our property.</p>
+<p>Now we are going to change our data entry code to add any number of new people into our list.</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+    {
+        List&lt;PersonModel&gt; people = <span class="hljs-keyword">new</span> List&lt;PersonModel&gt;();
+        <span class="hljs-keyword">string</span> firstName = String.Empty    
+        
+        <span class="hljs-keyword">do</span>
+        {
+            Console.Write(<span class="hljs-string">"What is your first name (or type exit to stop): "</span>);
+            firstName = Console.ReadLine() 
+        
+            Console.Write(<span class="hljs-string">"What is your last name: "</span>);
+        
+            <span class="hljs-keyword">string</span> lastName = Console.ReadLine()   
+        
+            <span class="hljs-keyword">if</span> (firstName.ToLower() != <span class="hljs-string">"exit"</span>)
+            {
+                PersonModel person = <span class="hljs-keyword">new</span> PersonModel();
+                person.FirstName = firstName;
+                person.LastName = lastName;
+                people.Add(person);
+            }
+        } <span class="hljs-keyword">while</span> (firstName.ToLower() != <span class="hljs-string">"exit"</span>)
+
+        <span class="hljs-keyword">foreach</span> (PersonModel p <span class="hljs-keyword">in</span> people)
+        {
+            Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{p.FirstName}</span> <span class="hljs-subst">{p.LastName}</span>"</span>);
+        }
+    }
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>What is your first name (or type exit to stop): Alan<br>
+What is your last name: Robson<br>
+What is your first name (or type exit to stop): Charley<br>
+What is your last name: Robson<br>
+What is your first name (or type exit to stop): James<br>
+What is your last name: Robson<br>
+What is your first name (or type exit to stop): exit<br>
+What is your last name: exit<br>
+Alan Robson<br>
+Charley Robson<br>
+James Robson</p>
+</blockquote>
+<p><strong>Important Note</strong> When you create a new person variable it lives in the context where it was created and when it hits the ending curly brace and it drops out of context and that person gets &quot;blown away&quot; and is erased.</p>
+<p><code>people</code> has the context of the <code>Main</code> method so it still exists and you can continue on and create another <code>person</code> object to add to the <code>people</code> list.</p>
+<p>This is the power of instantiation and we will use it a lot.</p>
+<p>Class instances are where we store data and we can control how long we want it to live making it more efficient than <code>static</code> data.</p>
+<p>Now we are going to refactor our code.</p>
+<p>First, modify the <code>PersonModel</code> class.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PersonModel</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FirstName { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> LastName { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Email { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> HasBeenGreeted { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    }
+</div></code></pre>
+<p>We have added a boolean property named <code>HasBeenGreeted</code>.</p>
+<p>Now we will take out the message and put it into separate static class.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ProcessPerson</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GreetPerson</span>(<span class="hljs-params">PersonModel person</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">$"Hello <span class="hljs-subst">{person.FirstName}</span> <span class="hljs-subst">{person.LastName}</span>"</span>);
+            person.HasBeenGreeted = <span class="hljs-literal">true</span>;
+        }
+    }
+</div></code></pre>
+<p>Modify the <code>Main()</code> method.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">foreach</span> (PersonModel p <span class="hljs-keyword">in</span> people)
+    {
+        ProcessPerson.GreetPerson(p);
+    }
+
+    Console.ReadLine();
+</div></code></pre>
+<p><strong>Note:</strong> our <code>GreetPerson(PersonModel person)</code> method in the <code>ProcessPerson</code> class is <strong>void</strong> meaning it is not returning any data.</p>
+<p>So what happens when we set <code>person.HasBeenGreeted = true;</code>?</p>
+<p>Remember when we are passing in <code>person</code> to <code>GreetPerson()</code> we are NOT passing in a copy. We are sending in the location of the variable and when you change the value of the property <code>HasBeenGreeted</code> you are adding it to its address so then it can be seen in <code>Main</code>.</p>
+<p>So if you add a breakpoint on the <code>foreach</code> line and the <code>Console.ReadLine();</code> you can see that <code>HasBeenGreeted</code> has been changed.</p>
+<p>When you finally hit <code>Console.ReadLine()</code> this is what you see in the <code>Locals</code> window.</p>
+<p><img src="assets/images/locals-window.jpg" alt="Locals window show property has been changed" title="Locals window show property has been changed"></p>
+<p>You could make a mistake and change <code>void</code> to <code>List&lt;PersonModel&gt;</code> and return the object but you don't need to do that because you aren't sending in a copy, you are sending in the real object.</p>
+<p>Primitive types are passed by <code>value</code> and class objects are passed by <code>reference</code>. So when you send an object to another function you can change its values.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>In general instantiated classes store data and static classes are for stateless processing.</p>
+</blockquote>
+<h3 id="final-code">Final code</h3>
+<h4 id="programcs">Program.cs</h4>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    List&lt;PersonModel&gt; people = <span class="hljs-keyword">new</span> List&lt;PersonModel&gt;();
+    <span class="hljs-keyword">string</span> firstName = String.Empty;
+
+    <span class="hljs-keyword">do</span>
+    {
+        Console.Write(<span class="hljs-string">"What is your first name (or type exit to stop): "</span>);
+        firstName = Console.ReadLine();
+
+        Console.Write(<span class="hljs-string">"What is your last name: "</span>);
+        <span class="hljs-keyword">string</span> lastName = Console.ReadLine();
+
+        <span class="hljs-keyword">if</span> (firstName.ToLower() != <span class="hljs-string">"exit"</span>)
+        {
+            PersonModel person = <span class="hljs-keyword">new</span> PersonModel();
+            person.FirstName = firstName;
+            person.LastName = lastName;
+            people.Add(person);
+        }
+    } <span class="hljs-keyword">while</span> (firstName.ToLower() != <span class="hljs-string">"exit"</span>);
+
+    <span class="hljs-keyword">foreach</span> (PersonModel p <span class="hljs-keyword">in</span> people)
+    {
+        ProcessPerson.GreetPerson(p);
+    }
+
+    Console.ReadLine();
+}
+</div></code></pre>
+<h4 id="personmodelcs">PersonModel.cs</h4>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PersonModel</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FirstName { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> LastName { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Email { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> HasBeenGreeted { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+    }
+</div></code></pre>
+<h4 id="processpersoncs">ProcessPerson.cs</h4>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ProcessPerson</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GreetPerson</span>(<span class="hljs-params">PersonModel person</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">$"Hello <span class="hljs-subst">{person.FirstName}</span> <span class="hljs-subst">{person.LastName}</span>"</span>);
+            person.HasBeenGreeted = <span class="hljs-literal">true</span>;
+        }
+    }
+</div></code></pre>
+
+</body>
+</html>

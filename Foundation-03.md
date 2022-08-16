@@ -421,3 +421,35 @@ We can add an action to print out a message to the output.
 Produces this output.
 
 ![Output](assets/images/output.jpg "Output")
+
+### Breakpoints
+
+You can open a breakpoints window that shows all of your breakpoints.
+
+From the menu.
+
+``Debug --> Windows --> Breakpoints``
+
+Or
+
+``Ctrl-ALt-B``
+
+#### Labels
+
+You can add a label to a breakpoint in the breakpoint window.
+
+![Breakpoint label](assets/images/breakpoint-lable.jpg "Breakpoint label")
+
+Name all of your breakpoints.
+
+![labels](assets/images/lables.jpg "labels")
+
+**Note:** if you had Action breakpoints they would also show up in this list.
+
+You can also disable or delete breakpoints in the breakpoint window. You can also disable by label. You can search for labels and disable those labels. 
+
+Another option is export all of your breakpoints and send them to another user who has the code. They can use your breakpoints to try and fix your problem.
+
+You save your breakpoints as an ``XML`` file.
+
+You can delete your breakpoints and then import them back from the file you saved.

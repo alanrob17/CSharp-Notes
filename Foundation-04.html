@@ -737,6 +737,393 @@ James Robson</p>
         }
     }
 </div></code></pre>
+<h2 id="properties">Properties</h2>
+<p>We are going to add another field into <code>PersonModel</code>.</p>
+<p>lets create an <code>Age</code> property. Instead of using the <code>prop</code> snippet we will use <code>propf</code> which is short for <code>propfull</code> and is a full property value.</p>
+<p>This is what is added.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> _age;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Age
+    {
+        <span class="hljs-keyword">get</span> { <span class="hljs-keyword">return</span> _age; }
+        <span class="hljs-keyword">set</span> { _age = <span class="hljs-keyword">value</span>; }
+    }
+</div></code></pre>
+<h3 id="private-backing-field">Private backing field</h3>
+<p>This is a private backing field.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> _age;
+</div></code></pre>
+<p>It stores the value of <code>Age</code> and should never be manipulated by our program except by the <code>setter</code> in <code>Age</code>.</p>
+<p>Notice that our property format in <code>Age</code> has changed. This allows us to add a range to <code>Age</code> and stops us from entering invalid ages.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Age
+    {
+        <span class="hljs-keyword">get</span> { 
+            <span class="hljs-keyword">return</span> _age; 
+        }
+        <span class="hljs-keyword">set</span> { 
+            _age = <span class="hljs-keyword">value</span>; 
+        }
+    }
+</div></code></pre>
+<p>The setter has special keyword named <code>value</code> which is what comes in from the program. We can check this value to see if it is valid.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Age
+    {
+        <span class="hljs-keyword">get</span> { <span class="hljs-keyword">return</span> _age; }
+        <span class="hljs-keyword">set</span> {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> &gt;= <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-keyword">value</span> &lt; <span class="hljs-number">126</span>)
+            {
+                _age = <span class="hljs-keyword">value</span>;   
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-string">"value"</span>, <span class="hljs-string">"Age is out of a valid range."</span>);
+            }
+        }
+    }
+</div></code></pre>
+<p>Here we are checking to see if the user entered a valid age. If they didn't we are going to stop the program and send an exception message telling the user that they didn't enter a valid age.</p>
+<p>We can also modify the code in a <code>getter</code>. In this case we will create an SSN (American social security number). The user can enter an SSN but this information is classified so should never be sent back to the user. We can use a <code>getter</code> to hide the real value.</p>
+<p>SSN format is <code>123-45-6789</code>.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> _ssn;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> SSN
+    {
+        <span class="hljs-keyword">get</span> {
+            <span class="hljs-keyword">string</span> output = <span class="hljs-string">$"###-##-<span class="hljs-subst">{_ssn.Substring(_ssn.Length - <span class="hljs-number">4</span>)}</span>"</span>;
+            <span class="hljs-keyword">return</span> output; 
+        }
+        <span class="hljs-keyword">set</span> { _ssn = <span class="hljs-keyword">value</span>; }
+    }
+</div></code></pre>
+<h3 id="programcs">Program.cs</h3>
+<pre class="hljs"><code><div>    PersonModel person = <span class="hljs-keyword">new</span> PersonModel();
+    person.FirstName = <span class="hljs-string">"Alan"</span>;
+    person.LastName = <span class="hljs-string">"Robson"</span>;
+    person.Age = <span class="hljs-number">70</span>;
+    person.SSN = <span class="hljs-string">"123-45-6789"</span>;
+
+    Console.WriteLine(person.SSN);
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>###-##-6789</p>
+</blockquote>
+<p>Using <code>setters</code> in full properties isn't something we would usually do. Often we would use auto properties and at some stage we might be adding this data to a database so we need to do some validation.</p>
+<p><code>getters</code> are used more often because we might want to format the data coming back.</p>
+<h3 id="other-things-we-can-do-with-properties">Other things we can do with properties</h3>
+<p>Here we set the <code>getter</code> to private which means that the application user can't read it</p>
+<p>Imagine we have a <code>password</code> field. We want to <code>set</code> the password but not let the user <code>get</code> the password.</p>
+<p>Once again we will use a full property value.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> _password; 
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Password
+    {
+        <span class="hljs-keyword">set</span> { _password = <span class="hljs-keyword">value</span>; }
+    }
+</div></code></pre>
+<p>We have removed the <code>getter</code> so the end user can't get at it.</p>
+<p>Inside the class we have a private <code>_password</code> so that we can use this to allow the current user access to a protected part of the application or website if they have permission.</p>
+<h3 id="setting-a-getter-or-setter-private">Setting a getter or setter private</h3>
+<p>We can set either a <code>getter</code> or a <code>setter</code> to private to limit the use of that property.</p>
+<p>Let's do this.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FirstName { <span class="hljs-keyword">private</span> <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+</div></code></pre>
+<p>Now we can use the <code>FirstName</code> value by doing the following.</p>
+<h3 id="private-getter">Private getter</h3>
+<p>It is also common to have a property that only has a <code>getter</code>.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FullName { 
+        <span class="hljs-keyword">get</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">$"<span class="hljs-subst">{FirstName}</span> <span class="hljs-subst">{LastName}</span>"</span>;
+        }
+    }
+</div></code></pre>
+<p>In this case we can't add a FullName property but we can <code>get</code> the property by combining the FirstName and LastName properties.</p>
+<p>This property has access to the private <code>getter</code> in the FirstName property but the application user doesn't.</p>
+<h3 id="private-setter">Private setter</h3>
+<p>We could do this.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> LastName { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; }
+</div></code></pre>
+<p>But how could we set the <code>LastName</code>?</p>
+<h3 id="constructors">Constructors</h3>
+<p>We can do this by getting the LastName in a constructor for the class. We use the snippet <code>ctor</code>.</p>
+<p>You don't have to use a constructor in a class but it is common to add one.</p>
+<p>In Program.cs lets look at creating the class object again.</p>
+<pre class="hljs"><code><div>    PersonModel person = <span class="hljs-keyword">new</span> PersonModel();
+</div></code></pre>
+<p>With <code>new</code> we are calling a <code>PersonModel()</code> method. The parens denote it as a method.</p>
+<p>We haven't previously had a constructor so our parens has been empty.</p>
+<p>Now we have a constructor we are going to use it to get the <code>LastName</code> value.</p>
+<p>In the class <code>PersonModel</code> build the constructor.</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PersonModel</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> lastName</span>)</span>
+    {
+        LastName = lastName;
+    }
+</div></code></pre>
+<p>This is valid because we are in the <code>PersonModel</code> and the constructor has access to <code>FirstName</code>.</p>
+<p>Now in Program.cs we can do this.</p>
+<pre class="hljs"><code><div>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+	{
+		PersonModel person = <span class="hljs-keyword">new</span> PersonModel(<span class="hljs-string">"Robson"</span>);
+		person.FirstName = <span class="hljs-string">"Alan"</span>;
+		person.Age = <span class="hljs-number">70</span>;
+		person.SSN = <span class="hljs-string">"123-45-6789"</span>;
+	
+		Console.WriteLine(person.SSN);
+		Console.WriteLine(person.FullName);
+	
+		Console.ReadLine();
+	}
+</div></code></pre>
+<p>It all looks good but the program won't compile, why? Have a look at the error message.</p>
+<blockquote>
+<p>Severity	Code	Description	Project	File	Line	Suppression State<br>
+Error	CS0271	The property or indexer 'PersonModel.FirstName' cannot be used in this context because the get accessor is inaccessible	ConsoleUI	<br>
+D:\Sandbox\Dapper-SQLite\InstantiatedApp\ConsoleUI\ProcessPerson.cs	13	Active</p>
+</blockquote>
+<p>There is an issue in the <code>ProcessPerson</code> class.</p>
+<p>We have to make a change to our code because <code>ProcessPerson</code> doesn't have access to <code>FirstName</code> anymore.</p>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ProcessPerson</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GreetPerson</span>(<span class="hljs-params">PersonModel person</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">$"Hello <span class="hljs-subst">{person.FullName}</span>"</span>);
+            person.HasBeenGreeted = <span class="hljs-literal">true</span>;
+        }
+    }
+</div></code></pre>
+<p>Once we do this our program will run successfully.</p>
+<p>What is the benefit of using a constructor?</p>
+<p>With a constructor we can be assured that our <code>PersonModel</code> class has a minimum amount of data to work with. So you could say that a person must have at least a first name and last name to become a valid person. So you are setting up a valid model.</p>
+<p>Another option is to put all of your <code>PersonModel</code> data into the constructor so you know you have all you need to run the program.</p>
+<p>So what if I didn't want to pass in a last name? There is a lot more to cover here but for the moment there is an option called method overloading to get around this.</p>
+<p>We put in an empty constructor.</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PersonModel</span>(<span class="hljs-params"></span>)</span>
+    {
+
+    }
+</div></code></pre>
+<p>Why isn't C# screaming at us now? It is because we are using a method overload. That is a method with a different signature.</p>
+<p>This allows us to call the <code>PersonModel()</code> method in <code>Program.cs</code> without a name value.</p>
+<p>If we run the program like this we get the following output.</p>
+<blockquote>
+<p>###-##-6789<br>
+Alan</p>
+</blockquote>
+<p>It doesn't have a last name.</p>
+<p>So now we have <strong>two</strong> overloads.</p>
+<p><img src="assets/images/two-overloads.jpg" alt="Different overloads" title="Different overloads"></p>
+<p>I can fill in the empty constructor qith.</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PersonModel</span>(<span class="hljs-params"></span>)</span>
+    {
+        Console.Write(<span class="hljs-string">"Please enter a last name: "</span>);
+        LastName = Console.ReadLine();
+    }
+</div></code></pre>
+<p>Now when I have an empty PersonModel() method it will ask me for the last name.</p>
+<p>Result.</p>
+<blockquote>
+<p>Please enter a last name: Robson<br>
+###-##-6789<br>
+Alan Robson</p>
+</blockquote>
+<h3 id="full-code">Full Code</h3>
+<h4 id="programcs">Program.cs</h4>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            PersonModel person = <span class="hljs-keyword">new</span> PersonModel();
+            person.FirstName = <span class="hljs-string">"Alan"</span>;
+            person.Age = <span class="hljs-number">70</span>;
+            person.SSN = <span class="hljs-string">"123-45-6789"</span>;
+
+            Console.WriteLine(person.SSN);
+            Console.WriteLine(person.FullName);
+
+            Console.ReadLine();
+        }
+    }
+</div></code></pre>
+<h4 id="personmodelcs">PersonModel.cs</h4>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PersonModel</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FirstName { <span class="hljs-keyword">private</span> <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> LastName { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Email { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">bool</span> HasBeenGreeted { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> _password;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Password
+        {
+            <span class="hljs-keyword">set</span> { _password = <span class="hljs-keyword">value</span>; }
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FullName
+        {
+            <span class="hljs-keyword">get</span>
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">$"<span class="hljs-subst">{FirstName}</span> <span class="hljs-subst">{LastName}</span>"</span>;
+            }
+        }
+
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> _age;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Age
+        {
+            <span class="hljs-keyword">get</span> { <span class="hljs-keyword">return</span> _age; }
+            <span class="hljs-keyword">set</span>
+            {
+                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> &gt;= <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-keyword">value</span> &lt; <span class="hljs-number">126</span>)
+                {
+                    _age = <span class="hljs-keyword">value</span>;
+
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-string">"value"</span>, <span class="hljs-string">"Age is out of a valid range."</span>);
+                }
+            }
+        }
+
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> _ssn;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> SSN
+        {
+            <span class="hljs-keyword">get</span>
+            {
+                <span class="hljs-keyword">string</span> output = <span class="hljs-string">$"###-##-<span class="hljs-subst">{_ssn.Substring(_ssn.Length - <span class="hljs-number">4</span>)}</span>"</span>;
+                <span class="hljs-keyword">return</span> output;
+            }
+            <span class="hljs-keyword">set</span> { _ssn = <span class="hljs-keyword">value</span>; }
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PersonModel</span>(<span class="hljs-params"></span>)</span>
+        {
+            Console.Write(<span class="hljs-string">"Please enter a last name: "</span>);
+            LastName = Console.ReadLine();
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PersonModel</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> lastName</span>)</span>
+        {
+            LastName = lastName;
+        }
+    }
+</div></code></pre>
+<h4 id="processpersoncs">ProcessPerson.cs</h4>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ProcessPerson</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GreetPerson</span>(<span class="hljs-params">PersonModel person</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">$"Hello <span class="hljs-subst">{person.FullName}</span>"</span>);
+            person.HasBeenGreeted = <span class="hljs-literal">true</span>;
+        }
+    }
+</div></code></pre>
+<h3 id="exercise">Exercise</h3>
+<p>Create a class that has properties for street address, city state and postcode. Then Add a FullAddress property that is read-only.</p>
+<h4 id="addressmodelcs">AddressModel.cs</h4>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">AddressModel</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Street { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> City { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> State { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; }
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Postcode { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">private</span> <span class="hljs-keyword">set</span>; }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FullAddress
+        {
+            <span class="hljs-keyword">get</span>
+            {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">$"<span class="hljs-subst">{Street}</span> <span class="hljs-subst">{City}</span>, <span class="hljs-subst">{State}</span> <span class="hljs-subst">{Postcode}</span>"</span>;
+            }
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AddressModel</span>(<span class="hljs-params"></span>)</span>
+        {
+            Console.Write(<span class="hljs-string">"Street address: "</span>);
+            Street = Console.ReadLine();
+
+            Console.Write(<span class="hljs-string">"City : "</span>);
+            City = Console.ReadLine();
+
+            Console.Write(<span class="hljs-string">"State: "</span>);
+            State = Console.ReadLine();
+
+            Console.Write(<span class="hljs-string">"Postcode: "</span>);
+            <span class="hljs-keyword">var</span> postcodeText = Console.ReadLine();
+            <span class="hljs-keyword">int</span> postcode = Convert.ToInt32(postcodeText);
+            Postcode = postcode;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AddressModel</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> street, <span class="hljs-keyword">string</span> city, <span class="hljs-keyword">string</span> state, <span class="hljs-keyword">int</span> postcode</span>)</span>
+        {
+            Street = street;
+            City = city;
+            State = state;
+            Postcode = postcode;
+        }
+    }
+</div></code></pre>
+<h4 id="processpersoncs">ProcessPerson.cs</h4>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title">ProcessPerson</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GreetPerson</span>(<span class="hljs-params">PersonModel person</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">$"Hello <span class="hljs-subst">{person.FullName}</span>"</span>);
+            Console.WriteLine(<span class="hljs-string">$""</span>);
+            person.HasBeenGreeted = <span class="hljs-literal">true</span>;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">PrintAddress</span>(<span class="hljs-params">AddressModel address</span>)</span>
+        {
+            Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{address.FullAddress}</span>"</span>);
+        }
+    }
+</div></code></pre>
+<h4 id="programcs">Program.cs</h4>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+    {
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+        {
+            PersonModel person = <span class="hljs-keyword">new</span> PersonModel();
+            person.FirstName = <span class="hljs-string">"Alan"</span>;
+            person.Age = <span class="hljs-number">70</span>;
+            person.SSN = <span class="hljs-string">"123-45-6789"</span>;
+
+            Console.WriteLine(person.SSN);
+            Console.WriteLine(person.FullName);
+
+            <span class="hljs-keyword">string</span> street = <span class="hljs-string">"21 Smith St"</span>;
+            <span class="hljs-keyword">string</span> city = <span class="hljs-string">"Melbourne"</span>;
+            <span class="hljs-keyword">string</span> state = <span class="hljs-string">"Victoria"</span>;
+            <span class="hljs-keyword">int</span> postcode = <span class="hljs-number">3000</span>;
+
+            AddressModel address = <span class="hljs-keyword">new</span> AddressModel(street, city, state, postcode);
+
+            ProcessPerson.PrintAddress(address);
+
+            address = <span class="hljs-keyword">new</span> AddressModel();
+
+            ProcessPerson.PrintAddress(address);
+
+            Console.ReadLine();
+        }
+    }
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>Please enter a last name: Robson<br>
+###-##-6789<br>
+Alan Robson<br>
+21 Smith St Melbourne, Victoria 3000<br>
+Street address: 34 Bongo St<br>
+City : Ballarat<br>
+State: Victoria<br>
+Postcode: 3351<br>
+34 Bongo St Ballarat, Victoria 3351</p>
+</blockquote>
+<p>The code above allows us to enter an address in two formats due to the <code>AddressModel</code> constructor overloading.</p>
 
 </body>
 </html>

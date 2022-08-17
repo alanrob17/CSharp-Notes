@@ -1263,3 +1263,9 @@ Our namespaces will be automatically changed ofr us.
 Your application will compile correctly.
 
 Namespaces will stop you using spaghetti code. It will all be ordered logically.
+
+## Class libraries
+
+In a console application anything that reads or writes to the console should be in the console application. For all other code it should be in a class library.
+
+> **Tip** Put as much of your code in class libraries as possible.

@@ -1269,3 +1269,64 @@ Namespaces will stop you using spaghetti code. It will all be ordered logically.
 In a console application anything that reads or writes to the console should be in the console application. For all other code it should be in a class library.
 
 > **Tip** Put as much of your code in class libraries as possible.
+
+## New structures in C #
+
+In my ``PersonModel`` I have added two constructors.
+
+```csharp
+    namespace DemoLibrary.Models
+    {
+        public class PersonModel
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+
+            public PersonModel()
+            {
+
+            }
+
+            public PersonModel(string firstName, string lastName)
+            {
+                FirstName = firstName;
+                LastName = lastName;
+            }
+        }
+    }
+```
+
+This allows me to do two things. 
+
+1. Ask the user to enter in first and last name.
+2. Enter first and last name when I create an instance of ``PersonModel``.
+
+### Creating an instance of PersonModel type
+
+In C# 1.0 or later.
+
+```csharp
+    PersonModel person = new PersonModel();
+```
+
+Now in C# 9.0 we can do this.
+
+```csharp
+    PersonModel person = new();
+```
+
+So using the new format for both constructors I can do this.
+
+```csharp
+	public static void Main(string[] args)
+	{
+		PersonModel person = new() { FirstName = "Alan", LastName = "Robson" };
+	
+		PersonModel person2 = new("James", "Robson");
+	
+		Console.WriteLine($"{person.FirstName} {person.LastName}");
+		Console.WriteLine($"{person2.FirstName} {person2.LastName}");
+	
+		Console.ReadLine();
+	}
+```

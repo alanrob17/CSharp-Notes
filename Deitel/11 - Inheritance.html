@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>11 - Inheritance.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="object-oriented-programming-inheritance">Object-Oriented Programming: Inheritance</h1>
+<h2 id="objectives">Objectives</h2>
+<ul>
+<li>
+<p>Understand how inheritance promotes software reusability.</p>
+</li>
+<li>
+<p>Create a derived class that inherits attributes and behaviors from a base class.</p>
+</li>
+<li>
+<p>Override base-class methods in derived classes.</p>
+</li>
+<li>
+<p>Use access modifier protected to give derived-class methods access to base-class members.</p>
+</li>
+<li>
+<p>Access base-class members with base.</p>
+</li>
+<li>
+<p>Understand how constructors are used in inheritance hierarchies.</p>
+</li>
+<li>
+<p>See an overview of the methods of class object, the direct or indirect base class of all classes.</p>
+</li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>Inheritance, a form of software reuse in which a new class is created by absorbing an existing class’s members and enhancing them with new or modified capabilities. Inheritance lets you save time during app development by reusing proven, high-performance and debugged high-quality software. This also increases the likelihood that a system will be implemented effectively.</p>
+<p>The existing class from which a new class inherits members is called the <code>base class</code>, and the new class is the <code>derived class</code>. Each derived class can become the base class for future derived classes. A derived class normally adds its own fields, properties and methods. Therefore, it’s more specific than its base class and represents a more specialized group of objects. Typically, the derived class exhibits the behaviors of its base class and additional ones that are specific to itself.</p>
+<p>The class hierarchy begins with class <code>object</code> - a C# keyword that’s an alias for <code>System.Object</code> in the Framework Class Library. Every class directly or indirectly extends (or “inherits from”) object.</p>
+<p>C# supports only single inheritance.</p>
+<p><code>Is-a</code> represents <strong>inheritance</strong>. In an <code>is-a</code> relationship, an object of a derived class also can be treated as an object of its base class. For example, a car <code>is a</code> vehicle, and a truck <code>is a</code> vehicle.</p>
+<p>New classes can inherit from classes in class libraries.</p>
+<h3 id="base-classes-and-derived-classes">Base Classes and Derived Classes</h3>
+<p><strong>Base classes tend to be more general, and derived classes tend to be more specific</strong>.</p>
+<p>One base class can have many derived classes, the set of objects represented by a base class is typically larger than the set of objects represented by any of its derived classes. For example, the base class Vehicle represents all vehicles-cars, trucks, boats, bicycles and so on. By contrast, derived class Car represents a smaller, more specific subset of vehicles.</p>
+<table>
+<thead>
+<tr>
+<th>Base class</th>
+<th>Derived classes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Student</td>
+<td>GraduateStudent, UndergraduateStudent</td>
+</tr>
+<tr>
+<td>Shape</td>
+<td>Circle, Triangle, Rectangle</td>
+</tr>
+<tr>
+<td>Loan</td>
+<td>CarLoan, HomeImprovementLoan, MortgageLoan</td>
+</tr>
+<tr>
+<td>Employee</td>
+<td>Faculty, Staff, HourlyWorker, CommissionWorker</td>
+</tr>
+<tr>
+<td>Space</td>
+<td>Object Star, Moon, Planet, FlyingSaucer</td>
+</tr>
+<tr>
+<td>BankAccount</td>
+<td>CheckingAccount, SavingsAccount</td>
+</tr>
+</tbody>
+</table>
+<p>A derived class can <strong>customize</strong> methods it inherits from its base class. In such cases, the derived class can <strong>override</strong> (redefine) the base-class method with an appropriate implementation.</p>
+<p>Inheritance relationships form treelike hierarchical structures.</p>
+<p><img src="../assets/images/community.jpg" alt="Community members" title="Community members"></p>
+<p>Each arrow with a hollow triangular arrowhead in the hierarchy diagram represents an <code>is-a</code> relationship. As we follow the arrows, we can state, for instance, that “an Employee <code>is a</code> CommunityMember” and “a Teacher <code>is a</code> Faculty member.”</p>
+<p>CommunityMember is the direct base class of Employee, Student and Alumnus and is an indirect base class of all the other classes in the diagram. Starting from the bottom, you can follow the arrows and apply the <code>is-a</code> relationship up to the topmost base class. For example, an Administrator is a Faculty member, is an Employee and is a CommunityMember.</p>
+<p>It’s possible to treat base-class objects and derived-class objects similarly - their commonalities are expressed in the base class’s members. Objects of all classes that extend a common base class can be treated as objects of that base class - such objects have an <code>is-a</code> relationship with the base class.</p>
+<p>However, base-class objects cannot be treated as objects of their derived classes. For example, all cars are vehicles, but not all vehicles are cars (other vehicles could be trucks, planes, bicycles, etc.).</p>
+<h3 id="protected-members">protected Members</h3>
+<p>A class’s <strong>public</strong> members are accessible wherever the app has a reference to an object of that class or one of its derived classes.</p>
+<p>A class’s <strong>private</strong> members are accessible only within the class itself. A base class’s private members are inherited by its derived classes, but are not directly accessible by derived-class methods and properties.</p>
+<p>Another access modifier is <strong>protected</strong>. Using <strong>protected</strong> access offers an intermediate level of access between public and private. A base class’s protected members <strong>can be</strong> accessed by members of that base class and by members of its derived classes, but not by clients of the class.</p>
+<p>All <strong>non-private</strong> base-class members retain their original access modifier when they become members of the derived class - public members of the base class become public members of the derived class, and protected members of the base class become protected members of the derived class.</p>
+<p>Derived-class methods can refer to public and protected members inherited from the base class simply by using the member names. When a derived-class method overrides a base-class method, the base-class version can be accessed from the derived class by preceding the base-class method name with the keyword <code>base</code> and the member access (.) operator.</p>
+<p>Example: BasePlusCommissionEmployee inherits from CommissionEmployee.</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BasePlusCommissionEmployee</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> firstName, <span class="hljs-keyword">string</span> lastName, <span class="hljs-keyword">string</span> socialSecurityNumber, <span class="hljs-keyword">decimal</span> grossSales,
+      <span class="hljs-keyword">decimal</span> commissionRate, <span class="hljs-keyword">decimal</span> baseSalary</span>) : <span class="hljs-title">base</span>(<span class="hljs-params">firstName, lastName, socialSecurityNumber, grossSales, commissionRate</span>)</span>
+{
+   BaseSalary = baseSalary;
+}
+</div></code></pre>
+<h3 id="relationship-between-base-classes-and-derived-classes">Relationship between Base Classes and Derived Classes</h3>
+<p>Now, we use an inheritance hierarchy containing types of employees in a company’s payroll app to discuss the relationship between a base class and a derived class. In this company:</p>
+<ul>
+<li><strong>commission employees</strong> - who will be represented as objects of a base class - are paid a percentage of their sales, while</li>
+<li><strong>base-salaried commission employees</strong> - who will be represented as objects of a derived class receive a base salary plus a percentage of their sales.</li>
+</ul>
+<p>The example shows that if base class CommissionEmployee’s instance variables are declared as <strong>protected</strong>, a BasePlusCommissionEmployee class that inherits from CommissionEmployee can access that data directly.</p>
+<h4 id="commissionemployeecs">CommissionEmployee.cs</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// CommissionEmployee class represents a commission employee.</span>
+<span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CommissionEmployee</span> : <span class="hljs-title">object</span>
+{
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FirstName { <span class="hljs-keyword">get</span>; }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> LastName { <span class="hljs-keyword">get</span>; }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> SocialSecurityNumber { <span class="hljs-keyword">get</span>; }
+   <span class="hljs-keyword">protected</span> <span class="hljs-keyword">decimal</span> grossSales; 
+   <span class="hljs-keyword">protected</span> <span class="hljs-keyword">decimal</span> commissionRate;
+
+   <span class="hljs-comment">// five-parameter constructor</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CommissionEmployee</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> firstName, <span class="hljs-keyword">string</span> lastName, <span class="hljs-keyword">string</span> socialSecurityNumber, <span class="hljs-keyword">decimal</span> grossSales, <span class="hljs-keyword">decimal</span> commissionRate</span>)</span>
+   {
+      FirstName = firstName;
+      LastName = lastName;
+      SocialSecurityNumber = socialSecurityNumber;
+      GrossSales = grossSales;
+      CommissionRate = commissionRate;
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">decimal</span> GrossSales
+   {
+      <span class="hljs-keyword">get</span>
+      {
+         <span class="hljs-keyword">return</span> grossSales;
+      }
+      <span class="hljs-keyword">set</span>
+      {
+         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> &lt; <span class="hljs-number">0</span>) 
+         {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-keyword">nameof</span>(<span class="hljs-keyword">value</span>), <span class="hljs-keyword">value</span>, <span class="hljs-string">$"<span class="hljs-subst">{<span class="hljs-keyword">nameof</span>(GrossSales)}</span> must be &gt;= 0"</span>);
+         }
+
+         grossSales = <span class="hljs-keyword">value</span>;
+      }
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">decimal</span> CommissionRate
+   {
+      <span class="hljs-keyword">get</span>
+      {
+         <span class="hljs-keyword">return</span> commissionRate;
+      }
+      <span class="hljs-keyword">set</span>
+      {
+         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> &lt;= <span class="hljs-number">0</span> || <span class="hljs-keyword">value</span> &gt;= <span class="hljs-number">1</span>)
+         {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-keyword">nameof</span>(<span class="hljs-keyword">value</span>), <span class="hljs-keyword">value</span>, <span class="hljs-string">$"<span class="hljs-subst">{<span class="hljs-keyword">nameof</span>(CommissionRate)}</span> must be &gt; 0 and &lt; 1"</span>);
+         }
+
+         commissionRate = <span class="hljs-keyword">value</span>;
+      }
+   }
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">decimal</span> <span class="hljs-title">Earnings</span>(<span class="hljs-params"></span>)</span> =&gt; commissionRate * grossSales;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ToString</span>(<span class="hljs-params"></span>)</span> =&gt;
+      <span class="hljs-string">$"commission employee: <span class="hljs-subst">{FirstName}</span> <span class="hljs-subst">{LastName}</span>\n"</span> +
+      <span class="hljs-string">$"social security number: <span class="hljs-subst">{SocialSecurityNumber}</span>\n"</span> +
+      <span class="hljs-string">$"gross sales: <span class="hljs-subst">{grossSales:C}</span>\n"</span> +
+      <span class="hljs-string">$"commission rate: <span class="hljs-subst">{commissionRate:F2}</span>"</span>;
+} 
+</div></code></pre>
+<p><strong>Note:</strong> <em>grossSales</em> and <em>commissionRate</em> are protected which means that they can be used by derived classes.</p>
+<h4 id="basepluscommissionemployee">BasePlusCommissionEmployee</h4>
+<p><code>BasePlusCommissionEmployee</code> inherits from <code>CommissionEmployee</code> and has access to CommissionEmployee's <strong>protected</strong> members.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BasePlusCommissionEmployee</span> : <span class="hljs-title">CommissionEmployee</span>
+{
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">decimal</span> baseSalary; <span class="hljs-comment">// base salary per week</span>
+
+   <span class="hljs-comment">// six-parameter derived-class constructor</span>
+   <span class="hljs-comment">// with call to base class CommissionEmployee constructor</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BasePlusCommissionEmployee</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> firstName, <span class="hljs-keyword">string</span> lastName,
+      <span class="hljs-keyword">string</span> socialSecurityNumber, <span class="hljs-keyword">decimal</span> grossSales,
+      <span class="hljs-keyword">decimal</span> commissionRate, <span class="hljs-keyword">decimal</span> baseSalary</span>)
+      : <span class="hljs-title">base</span>(<span class="hljs-params">firstName, lastName, socialSecurityNumber,
+           grossSales, commissionRate</span>)</span>
+   {
+      BaseSalary = baseSalary;
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">decimal</span> BaseSalary
+   {
+      <span class="hljs-keyword">get</span>
+      {
+         <span class="hljs-keyword">return</span> baseSalary;
+      }
+      <span class="hljs-keyword">set</span>
+      {
+         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> &lt; <span class="hljs-number">0</span>) <span class="hljs-comment">// validation</span>
+         {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-keyword">nameof</span>(<span class="hljs-keyword">value</span>), <span class="hljs-keyword">value</span>, <span class="hljs-string">$"<span class="hljs-subst">{<span class="hljs-keyword">nameof</span>(BaseSalary)}</span> must be &gt;= 0"</span>);
+         }
+
+         baseSalary = <span class="hljs-keyword">value</span>;
+      }
+   }
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">decimal</span> <span class="hljs-title">Earnings</span>(<span class="hljs-params"></span>)</span> =&gt; baseSalary + (commissionRate * grossSales);
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ToString</span>(<span class="hljs-params"></span>)</span> =&gt;
+      <span class="hljs-string">$"base-salaried commission employee: <span class="hljs-subst">{FirstName}</span> <span class="hljs-subst">{LastName}</span>\n"</span> +
+      <span class="hljs-string">$"social security number: <span class="hljs-subst">{SocialSecurityNumber}</span>\n"</span> +
+      <span class="hljs-string">$"gross sales: <span class="hljs-subst">{grossSales:C}</span>\n"</span> +
+      <span class="hljs-string">$"commission rate: <span class="hljs-subst">{commissionRate:F2}</span>\n"</span> +
+      <span class="hljs-string">$"base salary: <span class="hljs-subst">{baseSalary}</span>"</span>;
+} 
+</div></code></pre>
+<p><strong>Note:</strong> we are overriding the base classes <em>Earnings</em> property so that we can allow for this employees bas salary. Same with the <code>ToString()</code> method.</p>
+<h4 id="basepluscommissionemployeetestcs">BasePlusCommissionEmployeeTest.cs</h4>
+<p>Testing class BasePlusCommissionEmployee.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BasePlusCommissionEmployeeTest</span>
+{
+   <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+   {
+      <span class="hljs-comment">// instantiate BasePlusCommissionEmployee object</span>
+      <span class="hljs-keyword">var</span> employee = <span class="hljs-keyword">new</span> BasePlusCommissionEmployee(<span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Lewis"</span>, <span class="hljs-string">"333-33-3333"</span>, <span class="hljs-number">5000.00</span>M, <span class="hljs-number">.04</span>M, <span class="hljs-number">300.00</span>M);
+
+      <span class="hljs-comment">// display BasePlusCommissionEmployee's data</span>
+      Console.WriteLine(<span class="hljs-string">"Employee information obtained by properties and methods: \n"</span>);
+      Console.WriteLine(<span class="hljs-string">$"First name is <span class="hljs-subst">{employee.FirstName}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Last name is <span class="hljs-subst">{employee.LastName}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Social security number is <span class="hljs-subst">{employee.SocialSecurityNumber}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Gross sales are <span class="hljs-subst">{employee.GrossSales:C}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Commission rate is <span class="hljs-subst">{employee.CommissionRate:F2}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Earnings are <span class="hljs-subst">{employee.Earnings():C}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Base salary is <span class="hljs-subst">{employee.BaseSalary:C}</span>"</span>);
+
+      employee.BaseSalary = <span class="hljs-number">1000.00</span>M; <span class="hljs-comment">// set base salary</span>
+
+      Console.WriteLine(<span class="hljs-string">"\nUpdated employee information obtained by ToString:\n"</span>);
+      Console.WriteLine(employee);
+      Console.WriteLine(<span class="hljs-string">$"earnings: <span class="hljs-subst">{employee.Earnings():C}</span>"</span>);
+   }
+}
+</div></code></pre>
+<p>Returns.</p>
+<blockquote>
+<p>Employee information obtained by properties and methods:</p>
+<p>First name is Bob<br>
+Last name is Lewis<br>
+Social security number is 333-33-3333<br>
+Gross sales are $5,000.00<br>
+Commission rate is 0.04<br>
+Earnings are $500.00<br>
+Base salary is $300.00</p>
+<p>Updated employee information obtained by ToString:</p>
+<p>base-salaried commission employee: Bob Lewis<br>
+social security number: 333-33-3333<br>
+gross sales: $5,000.00<br>
+commission rate: 0.04<br>
+base salary: 1000.00<br>
+earnings: $1,200.00</p>
+</blockquote>
+<p>Points to consider:</p>
+<p>We literally copied the code from class <code>CommissionEmployee</code> and pasted it into class <code>BasePlusCommissionEmployee</code>.</p>
+<p>E.g. firstName, lastName, socialSecurityNumber, grossSales and commissionRate</p>
+<p>We then modified class <code>BasePlusCommissionEmployee</code> to include a <strong>base salary</strong> and methods and properties that manipulate the base salary.</p>
+<p>This “copy-and-paste” approach is error prone and time consuming. Worse yet, it can spread many physical copies of the same code throughout a system, creating a code-maintenance nightmare. Is there a way to “absorb” the members of one class in a way that makes them part of other classes without copying code?</p>
+<h3 id="creating-a-commissionemployee%E2%80%93basepluscommissionemployee-inheritance-hierarchy">Creating a CommissionEmployee–BasePlusCommissionEmployee Inheritance Hierarchy</h3>
+<p>Now we declare class <code>BasePlusCommissionEmployee</code>, which extends (inherits from) class <code>CommissionEmployee</code>. A <code>BasePlusCommissionEmployee</code> object is a <code>CommissionEmployee</code> (because inheritance passes on the capabilities of class <code>CommissionEmployee</code>), but class <code>BasePlusCommissionEmployee</code> also has instance variable <code>baseSalary</code>. The colon (<code>:</code>) of the class declaration indicates inheritance. As a derived class, <code>BasePlusCommissionEmployee</code> inherits <code>CommissionEmployee</code>’s members and can access only those that are <strong>non-private</strong>. <code>CommissionEmployee</code>’s constructor <strong>is not inherited</strong>. Thus, the public services of <code>BasePlusCommissionEmployee</code> include its constructor, public methods and properties inherited from class <code>CommissionEmployee</code>, property <code>BaseSalary</code>, method <code>Earnings</code> and method <code>ToString</code>.</p>
+<p>Again, <code>BasePlusCommissionEmployee</code>’s constructor must explicitly call <code>CommissionEmployee</code>’s constructor, because <code>CommissionEmployee</code> does not provide a parameterless constructor that could be invoked implicitly.</p>
+<p>Next version of our code.</p>
+<h3 id="commissionemployeecs">CommissionEmployee.cs</h3>
+<p>We are declaring private variables again.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">CommissionEmployee</span>
+{
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> FirstName { <span class="hljs-keyword">get</span>; }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> LastName { <span class="hljs-keyword">get</span>; }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> SocialSecurityNumber { <span class="hljs-keyword">get</span>; }
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">decimal</span> grossSales;
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">decimal</span> commissionRate;
+
+   <span class="hljs-comment">// five-parameter constructor</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CommissionEmployee</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> firstName, <span class="hljs-keyword">string</span> lastName, <span class="hljs-keyword">string</span> socialSecurityNumber, <span class="hljs-keyword">decimal</span> grossSales, <span class="hljs-keyword">decimal</span> commissionRate</span>)</span>
+   {
+      FirstName = firstName;
+      LastName = lastName;
+      SocialSecurityNumber = socialSecurityNumber;
+      GrossSales = grossSales;
+      CommissionRate = commissionRate;
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">decimal</span> GrossSales
+   {
+      <span class="hljs-keyword">get</span>
+      {
+         <span class="hljs-keyword">return</span> grossSales;
+      }
+      <span class="hljs-keyword">set</span>
+      {
+         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> &lt; <span class="hljs-number">0</span>)
+         {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-keyword">nameof</span>(<span class="hljs-keyword">value</span>), <span class="hljs-keyword">value</span>, <span class="hljs-string">$"<span class="hljs-subst">{<span class="hljs-keyword">nameof</span>(GrossSales)}</span> must be &gt;= 0"</span>);
+         }
+
+         grossSales = <span class="hljs-keyword">value</span>;
+      }
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">decimal</span> CommissionRate
+   {
+      <span class="hljs-keyword">get</span>
+      {
+         <span class="hljs-keyword">return</span> commissionRate;
+      }
+      <span class="hljs-keyword">set</span>
+      {
+         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> &lt;= <span class="hljs-number">0</span> || <span class="hljs-keyword">value</span> &gt;= <span class="hljs-number">1</span>) <span class="hljs-comment">// validation</span>
+         {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-keyword">nameof</span>(<span class="hljs-keyword">value</span>),
+               <span class="hljs-keyword">value</span>, <span class="hljs-string">$"<span class="hljs-subst">{<span class="hljs-keyword">nameof</span>(CommissionRate)}</span> must be &gt; 0 and &lt; 1"</span>);
+         }
+
+         commissionRate = <span class="hljs-keyword">value</span>;
+      }
+   }
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">decimal</span> <span class="hljs-title">Earnings</span>(<span class="hljs-params"></span>)</span> =&gt; CommissionRate * GrossSales;
+
+   <span class="hljs-comment">// return string representation of CommissionEmployee object</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ToString</span>(<span class="hljs-params"></span>)</span> =&gt;
+      <span class="hljs-string">$"commission employee: <span class="hljs-subst">{FirstName}</span> <span class="hljs-subst">{LastName}</span>\n"</span> +
+      <span class="hljs-string">$"social security number: <span class="hljs-subst">{SocialSecurityNumber}</span>\n"</span> +
+      <span class="hljs-string">$"gross sales: <span class="hljs-subst">{GrossSales:C}</span>\n"</span> +
+      <span class="hljs-string">$"commission rate: <span class="hljs-subst">{CommissionRate:F2}</span>"</span>;
+} 
+</div></code></pre>
+<p><strong>Note:</strong> we have gone back to private properties, <code>grossSales</code> and <code>commissionRate</code>.</p>
+<h4 id="basepluscommissionemployeecs">BasePlusCommissionEmployee.cs</h4>
+<p><code>BasePlusCommissionEmployee</code> inherits from <code>CommissionEmployee</code> and has controlled access to <code>CommissionEmployee</code>'s private data via its public properties.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BasePlusCommissionEmployee</span> : <span class="hljs-title">CommissionEmployee</span>
+{
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">decimal</span> baseSalary; <span class="hljs-comment">// base salary per week</span>
+
+   <span class="hljs-comment">// six-parameter derived-class constructor</span>
+   <span class="hljs-comment">// with call to base class CommissionEmployee constructor</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BasePlusCommissionEmployee</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> firstName, <span class="hljs-keyword">string</span> lastName,
+      <span class="hljs-keyword">string</span> socialSecurityNumber, <span class="hljs-keyword">decimal</span> grossSales,
+      <span class="hljs-keyword">decimal</span> commissionRate, <span class="hljs-keyword">decimal</span> baseSalary</span>)
+      : <span class="hljs-title">base</span>(<span class="hljs-params">firstName, lastName, socialSecurityNumber,
+           grossSales, commissionRate</span>)</span>
+   {
+      BaseSalary = baseSalary;
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">decimal</span> BaseSalary
+   {
+      <span class="hljs-keyword">get</span>
+      {
+         <span class="hljs-keyword">return</span> baseSalary;
+      }
+      <span class="hljs-keyword">set</span>
+      {
+         <span class="hljs-keyword">if</span> (<span class="hljs-keyword">value</span> &lt; <span class="hljs-number">0</span>)
+         {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ArgumentOutOfRangeException(<span class="hljs-keyword">nameof</span>(<span class="hljs-keyword">value</span>), <span class="hljs-keyword">value</span>, <span class="hljs-string">$"<span class="hljs-subst">{<span class="hljs-keyword">nameof</span>(BaseSalary)}</span> must be &gt;= 0"</span>);
+         }
+
+         baseSalary = <span class="hljs-keyword">value</span>;
+      }
+   }
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">decimal</span> <span class="hljs-title">Earnings</span>(<span class="hljs-params"></span>)</span> =&gt; BaseSalary + <span class="hljs-keyword">base</span>.Earnings();
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ToString</span>(<span class="hljs-params"></span>)</span> =&gt; <span class="hljs-string">$"base-salaried <span class="hljs-subst">{<span class="hljs-keyword">base</span>.ToString()}</span>\nbase salary: <span class="hljs-subst">{BaseSalary:C}</span>"</span>;
+}
+</div></code></pre>
+<h4 id="a-derived-classs-constructor-must-call-its-base-classs-constructor">A Derived Class’s Constructor Must Call Its Base Class’s Constructor</h4>
+<p>Each derived-class constructor must implicitly or explicitly call its base-class constructor to ensure that the instance variables inherited from the base class are initialized properly.</p>
+<p><code>BasePlusCommissionEmployee</code>’s six-parameter constructor explicitly calls class <code>CommissionEmployee</code>’s five-parameter constructor to initialize the <code>CommissionEmployee</code> portion of a <code>BasePlusCommissionEmployee</code> object—that is, the <code>FirstName</code>, <code>LastName</code>, <code>SocialSecurityNumber</code>, <code>GrossSales</code> and <code>CommissionRate</code>.</p>
+<p>After the <code>:</code> it invokes <code>CommissionEmployee</code>’s constructor via a constructor initializer with keyword <strong>base</strong> to invoke the base-class constructor, passing arguments to initialize the base class’s corresponding properties that were inherited into the derived-class object. If <code>BasePlusCommissionEmployee</code>’s constructor did not invoke <code>CommissionEmployee</code>’s constructor explicitly, C# would attempt to invoke class <code>CommissionEmployee</code>’s parameterless or default constructor implicitly. <code>CommissionEmployee</code> does not have such a constructor, so the compiler would issue an error.</p>
+<h4 id="basepluscommissionemployee-method-earnings">BasePlusCommissionEmployee Method earnings</h4>
+<p>We declare method <code>Earnings</code> using keyword <strong>override</strong> to override the <code>CommissionEmployee</code>'s <code>Earnings</code> method, as we did with method <code>ToString</code> in previous examples. We would get an error saying that we cannot override the base classes <code>Earnings</code> method because it was not explicitly “marked virtual, abstract, or override.” The <strong>virtual</strong> and <strong>abstract</strong> keywords indicate that a base-class method can be overridden in derived classes.</p>
+<p>The override modifier declares that a derived-class method overrides a virtual or abstract base-class method. This modifier also implicitly declares the derived-class method virtual and allows it to be overridden in derived classes further down the inheritance hierarchy. Adding the keyword <strong>virtual</strong> to method <code>Earnings</code>’ declaration eliminates the compilation errors.</p>
+<p>The compiler generates additional errors because base class <code>CommissionEmployee</code>’s instance variables <code>commissionRate</code> and <code>grossSales</code> are private-derived class <code>BasePlusCommissionEmployee</code>’s methods are not allowed to access the base class’s private members. The compiler also issues errors in method <code>ToString</code> for the same reason. The errors in <code>BasePlusCommissionEmployee</code> can be prevented by using the public properties inherited from class <code>CommissionEmployee</code>.</p>
+<p>For example, you could have invoked the get accessors of properties <code>CommissionRate</code> and <code>GrossSales</code> to access <code>CommissionEmployee</code>’s private instance variables <code>commissionRate</code> and <code>grossSales</code>, respectively.</p>
+<h4 id="commissionemployee%E2%80%93basepluscommissionemployee">CommissionEmployee–BasePlusCommissionEmployee</h4>
+<p>Inheritance Hierarchy Using protected Instance Variables To enable class BasePlusCommissionEmployee to directly access base-class instance variables <code>grossSales</code> and <code>commissionRate</code>, we can declare those members as protected in the base class. As we discussed, a base class’s protected members are accessible to all derived classes of that base class. Class <code>CommissionEmployee</code> in this example is a modification of the earlier version from that declares its instance variables <code>grossSales</code> and <code>commissionRate</code> as rather than private. We also declare the Earnings method virtual so that BasePlusCommissionEmployee can override the method. The rest of class CommissionEmployee in this example is identical to Fig. 11.4. The complete source code for class CommissionEmployee<br>
+is included in this example’s project.</p>
+<h4 id="class-basepluscommissionemployee">Class BasePlusCommissionEmployee</h4>
+<p>Class <code>BasePlusCommissionEmployee</code> in this example extends the version of class <code>CommissionEmployee</code> with protected instance variables <code>grossSales</code> and <code>commissionRate</code>.</p>
+<p>Each <code>BasePlusCommissionEmployee</code> object contains these <code>CommissionEmployee</code> instance variables, which are inherited into <code>BasePlusCommissionEmployee</code> as protected members. As a result, directly accessing instance variables grossSales and commissionRate no longer generates compilation errors in methods <code>Earnings</code> and <code>ToString</code>. If another class extends <code>BasePlusCommissionEmployee</code>, the new derived class also inherits <code>grossSales</code> and <code>commissionRate</code> as protected members.</p>
+<p>Class <code>BasePlusCommissionEmployee</code> does not inherit class <code>CommissionEmployee</code>’s constructor. However, class <code>BasePlusCommissionEmployee</code>’s constructor (lines 12–19) calls class <code>CommissionEmployee</code>’s constructor with a constructor initializer. Again <code>BasePlusCommissionEmployee</code>’s constructor must explicitly call <code>CommissionEmployee</code>’s constructor, because <code>CommissionEmployee</code> does not provide a parameterless constructor that could be invoked implicitly.</p>
+<h4 id="basepluscommissionemployeetestcs">BasePlusCommissionEmployeeTest.cs</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">BasePlusCommissionEmployeeTest</span>
+{
+   <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
+   {
+      <span class="hljs-keyword">var</span> employee = <span class="hljs-keyword">new</span> BasePlusCommissionEmployee(<span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Lewis"</span>, <span class="hljs-string">"333-33-3333"</span>, <span class="hljs-number">5000.00</span>M, <span class="hljs-number">.04</span>M, <span class="hljs-number">300.00</span>M);
+
+      Console.WriteLine(<span class="hljs-string">"Employee information obtained by properties and methods: \n"</span>);
+      Console.WriteLine(<span class="hljs-string">$"First name is <span class="hljs-subst">{employee.FirstName}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Last name is <span class="hljs-subst">{employee.LastName}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Social security number is <span class="hljs-subst">{employee.SocialSecurityNumber}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Gross sales are <span class="hljs-subst">{employee.GrossSales:C}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Commission rate is <span class="hljs-subst">{employee.CommissionRate:F2}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Earnings are <span class="hljs-subst">{employee.Earnings():C}</span>"</span>);
+      Console.WriteLine(<span class="hljs-string">$"Base salary is <span class="hljs-subst">{employee.BaseSalary:C}</span>"</span>);
+
+      employee.BaseSalary = <span class="hljs-number">1000.00</span>M;
+
+      Console.WriteLine(<span class="hljs-string">"\nUpdated employee information obtained by ToString:\n"</span>);
+      Console.WriteLine(employee);
+      Console.WriteLine(<span class="hljs-string">$"earnings: <span class="hljs-subst">{employee.Earnings():C}</span>"</span>);
+   }
+}
+</div></code></pre>
+
+</body>
+</html>
